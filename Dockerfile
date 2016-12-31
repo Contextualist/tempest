@@ -24,7 +24,8 @@ RUN set -ex && \
     make install && \
     [ ! -d ${CONF_DIR} ] && mkdir -p ${CONF_DIR} && \
     [ ! -d ${KCPTUN_DIR} ] && mkdir -p ${KCPTUN_DIR} && cd ${KCPTUN_DIR} && \
-    curl -s ${kcptun_latest} | jq -r ".assets[] | select(.name | test('linux-amd64'; '')) | .browser_download_url" | tar xz -C ${KCPTUN_DIR}/ && \
+    kcptun_latest_download=`curl -s ${kcptun_latest} | jq -r ".assets[] | select(.name | test('linux-amd64'; '')) | .browser_download_url"` && \
+    curl -Lk ${kcptun_latest_download} | tar xz -C ${KCPTUN_DIR}/ && \
     mv ${KCPTUN_DIR}/server_linux_amd64 ${KCPTUN_DIR}/kcp-server && \
     rm -f ${KCPTUN_DIR}/client_linux_amd64 && \
     chown root:root ${KCPTUN_DIR}/* && \
