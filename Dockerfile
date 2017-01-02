@@ -49,10 +49,9 @@ RUN set -ex && \
     rm -rf /var/cache/apk/* ~/.cache /tmp/libsodium /tmp/onig-5.9.6 /tmp/jq-1.5
 
 
-WORKDIR /scripts
-ADD *.sh ./
-RUN chmod +x ./*.sh
+ADD *.sh /
+RUN chmod +x /*.sh
 
 EXPOSE 22
 EXPOSE 29900/udp
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
