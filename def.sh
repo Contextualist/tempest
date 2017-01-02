@@ -40,7 +40,7 @@ KCPTUN_KEEPALIVE=${KCPTUN_KEEPALIVE:-10}
 KCPTUN_SNMPLOG=${KCPTUN_SNMPLOG:-}
 
 function kupdate(){
-    kcptun_latest_download=`curl -s ${kcptun_latest} | jq -r ".assets[] | select(.name | test('linux-amd64'; '')) | .browser_download_url"`
+    kcptun_latest_download=`curl -s ${kcptun_latest} | jq -r ".assets[] | select(.name | test(\"linux-amd64\"; \"\")) | .browser_download_url"`
     curl -Lk ${kcptun_latest_download} | tar xz -C ${KCPTUN_DIR}/
     rm ${KCPTUN_DIR}/kcp-server
     mv ${KCPTUN_DIR}/server_linux_amd64 ${KCPTUN_DIR}/kcp-server
