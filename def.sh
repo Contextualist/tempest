@@ -3,7 +3,6 @@
 set -e
 DEBUG=${DEBUG:-false}
 ROOT_PSWD=${ROOT_PSWD:-root}
-kcptun_latest=https://api.github.com/repos/xtaci/kcptun/releases/latest
 KCPTUN_DIR=/usr/local/kcp-server
 KCPTUN_CONF="/usr/local/conf/kcptun_config.json"
 KCPTUN_LOG="/var/log/kcptun_snmp.log"
@@ -40,8 +39,7 @@ KCPTUN_KEEPALIVE=${KCPTUN_KEEPALIVE:-10}
 KCPTUN_SNMPLOG=${KCPTUN_SNMPLOG:-}
 
 function kupdate {
-    kcptun_latest_download=`curl -s ${kcptun_latest} | jq -r ".assets[] | select(.name | test(\"linux-amd64\"; \"\")) | .browser_download_url"`
-    curl -Lk ${kcptun_latest_download} | tar xz -C ${KCPTUN_DIR}/
+    curl -fL https://glare.arukascloud.io/xtaci/kcptun/linux-amd64 | tar xz -C ${KCPTUN_DIR}/
     rm -f ${KCPTUN_DIR}/kcp-server
     mv ${KCPTUN_DIR}/server_linux_amd64 ${KCPTUN_DIR}/kcp-server
     rm -f ${KCPTUN_DIR}/client_linux_amd64
