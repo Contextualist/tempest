@@ -39,19 +39,19 @@ KCPTUN_SOCKBUF=${KCPTUN_SOCKBUF:-4194304}
 KCPTUN_KEEPALIVE=${KCPTUN_KEEPALIVE:-10}
 KCPTUN_SNMPLOG=${KCPTUN_SNMPLOG:-}
 
-function kupdate(){
+function kupdate {
     kcptun_latest_download=`curl -s ${kcptun_latest} | jq -r ".assets[] | select(.name | test(\"linux-amd64\"; \"\")) | .browser_download_url"`
     curl -Lk ${kcptun_latest_download} | tar xz -C ${KCPTUN_DIR}/
-    rm ${KCPTUN_DIR}/kcp-server
+    rm -f ${KCPTUN_DIR}/kcp-server
     mv ${KCPTUN_DIR}/server_linux_amd64 ${KCPTUN_DIR}/kcp-server
     rm -f ${KCPTUN_DIR}/client_linux_amd64
     chown root:root ${KCPTUN_DIR}/*
     chmod 755 ${KCPTUN_DIR}/*
 }
 
-function kstart(){
-    rm ${KCPTUN_LOG}
-    rm ${KCPTUN_CONF}
+function kstart {
+    rm -f ${KCPTUN_LOG}
+    rm -f ${KCPTUN_CONF}
     cat > ${KCPTUN_CONF}<<-EOF
     {
         "listen": ":${KCPTUN_LISTEN}",
@@ -81,12 +81,12 @@ EOF
     exec "kcp-server" -c ${KCPTUN_CONF}
 }
 
-function kstop(){
+function kstop {
     kill `pidof kcp-server`
     cat ${KCPTUN_LOG}
 }
 
-function envar(){
+function envar {
     echo $1 >> def.sh
     eval $1
 }
