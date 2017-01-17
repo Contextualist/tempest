@@ -7,8 +7,8 @@ ENV SS_2_5_6=https://github.com/shadowsocks/shadowsocks-libev/archive/v2.5.6.tar
     KCPTUN_DIR=/usr/local/kcp-server
 
 RUN set -ex && \
-    apk add --no-cache pcre bash openssh curl && \
-    apk add --no-cache  --virtual TMP autoconf build-base wget tar libtool linux-headers openssl-dev pcre-dev && \
+    apk add --no-cache pcre bash openssl-dev openssh curl && \
+    apk add --no-cache  --virtual TMP autoconf build-base wget tar libtool linux-headers pcre-dev && \
     curl -sSL $SS_2_5_6 | tar xz && \
     cd $SS_DIR && \
     ./configure --disable-documentation && \
