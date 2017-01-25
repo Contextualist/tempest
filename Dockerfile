@@ -1,20 +1,18 @@
 FROM alpine:latest
 
-ENV SS_2_5_6=https://github.com/shadowsocks/shadowsocks-libev/archive/v2.5.6.tar.gz \
-    SS_DIR=shadowsocks-libev-2.5.6 \
-    libsodium_1_0_11="https://github.com/jedisct1/libsodium/releases/download/1.0.11/libsodium-1.0.11.tar.gz" \
+ENV libsodium_1_0_11="https://github.com/jedisct1/libsodium/releases/download/1.0.11/libsodium-1.0.11.tar.gz" \
     CONF_DIR="/usr/local/conf" \
     KCPTUN_DIR=/usr/local/kcp-server
 
 RUN set -ex && \
     apk add --no-cache pcre bash openssl-dev openssh curl && \
-    apk add --no-cache  --virtual TMP autoconf build-base wget tar libtool linux-headers pcre-dev && \
-    curl -sSL $SS_2_5_6 | tar xz && \
-    cd $SS_DIR && \
+    apk add --no-cache  --virtual TMP autoconf build-base tar libtool linux-headers pcre-dev && \
+    curl -fLsS https://glare.arukascloud.io/shadowsocks/shadowsocks-libev/tar | tar xz && \
+    cd shadowsocks* && \
     ./configure --disable-documentation && \
     make install && \
     cd .. && \
-    rm -rf $SS_DIR && \
+    rm -rf shadowsocks* && \
     mkdir /tmp/libsodium && \
     curl -Lk ${libsodium_1_0_11}|tar xz -C /tmp/libsodium --strip-components=1 && \
     cd /tmp/libsodium && \
