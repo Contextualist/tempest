@@ -7,7 +7,7 @@ ENV libsodium_1_0_11="https://github.com/jedisct1/libsodium/releases/download/1.
 RUN set -ex && \
     apk add --no-cache pcre bash openssl-dev openssh curl && \
     apk add --no-cache  --virtual TMP autoconf build-base tar libtool linux-headers pcre-dev && \
-    curl -fLsS https://glare.arukascloud.io/shadowsocks/shadowsocks-libev/tar | tar xz && \
+    curl -fLsS https://glare.arukascloud.io/shadowsocks/shadowsocks-libev/gz | tar xz && \
     cd shadowsocks* && \
     ./configure --disable-documentation && \
     make install && \
