@@ -14,19 +14,13 @@ RUN set -ex && \
     cd .. && \
     rm -rf shadowsocks* && \
     mkdir /tmp/libsodium && \
-    curl -Lk ${libsodium_1_0_11}|tar xz -C /tmp/libsodium --strip-components=1 && \
+    curl -LsS ${libsodium_1_0_11} | tar xz -C /tmp/libsodium --strip-components=1 && \
     cd /tmp/libsodium && \
     ./configure && \
     make -j $(awk '/processor/{i++}END{print i}' /proc/cpuinfo) && \
     make install && \
     [ ! -d ${CONF_DIR} ] && mkdir -p ${CONF_DIR} && \
-    [ ! -d ${KCPTUN_DIR} ] && mkdir -p ${KCPTUN_DIR} && cd ${KCPTUN_DIR} && \
-    curl -fL https://glare.arukascloud.io/xtaci/kcptun/linux-amd64 | tar xz -C ${KCPTUN_DIR}/ && \
-    mv ${KCPTUN_DIR}/server_linux_amd64 ${KCPTUN_DIR}/kcp-server && \
-    rm -f ${KCPTUN_DIR}/client_linux_amd64 && \
-    chown root:root ${KCPTUN_DIR}/* && \
-    chmod 755 ${KCPTUN_DIR}/* && \
-    ln -s ${KCPTUN_DIR}/* /bin/ && \
+    [ ! -d ${KCPTUN_DIR} ] && mkdir -p ${KCPTUN_DIR} && \
     sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config && \
     apk --no-cache del --virtual TMP && \
     apk --no-cache del build-base autoconf && \

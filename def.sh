@@ -39,12 +39,13 @@ KCPTUN_KEEPALIVE=${KCPTUN_KEEPALIVE:-10}
 KCPTUN_SNMPLOG=${KCPTUN_SNMPLOG:-}
 
 function kupdate {
-    curl -fL https://glare.arukascloud.io/xtaci/kcptun/linux-amd64 | tar xz -C ${KCPTUN_DIR}/
+    curl -fLsS https://glare.arukascloud.io/xtaci/kcptun/linux-amd64 | tar xz -C ${KCPTUN_DIR}/
     rm -f ${KCPTUN_DIR}/kcp-server
     mv ${KCPTUN_DIR}/server_linux_amd64 ${KCPTUN_DIR}/kcp-server
     rm -f ${KCPTUN_DIR}/client_linux_amd64
     chown root:root ${KCPTUN_DIR}/*
     chmod 755 ${KCPTUN_DIR}/*
+    ln -s ${KCPTUN_DIR}/* /bin/
 }
 
 function kstart {
