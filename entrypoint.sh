@@ -24,6 +24,11 @@ netstat -ntlup | grep ss-server
 kupdate
 
 if $DEBUG ; then
+    cat >> /etc/profile <<-EOF
+    cd /
+    bash
+    . def.sh
+EOF
     envar "KCPTUN_SNMPLOG=${KCPTUN_LOG}"
     echo "root:${ROOT_PSWD}" | chpasswd
     ssh-keygen -A
