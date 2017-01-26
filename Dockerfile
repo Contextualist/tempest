@@ -24,7 +24,7 @@ RUN set -ex && \
                                      linux-headers \
                                      pcre-dev \
                                      udns-dev && \
-    curl -fLsS https://glare.arukascloud.io/shadowsocks/shadowsocks-libev/gz | tar xz && \
+    curl -fLsS https://glare.arukascloud.io/shadowsocks/shadowsocks-libev/tar | tar xz && \
     cd shadowsocks* && \
     curl -sSL https://github.com/shadowsocks/ipset/archive/shadowsocks.tar.gz | tar xz --strip 1 -C libipset && \
     curl -sSL https://github.com/shadowsocks/libcork/archive/shadowsocks.tar.gz | tar xz --strip 1 -C libcork && \
