@@ -1,8 +1,8 @@
 FROM alpine:latest
 
 ENV CONF_DIR="/usr/local/conf" \
-    KCPTUN_DIR=/usr/local/kcp-server \
-    SS_SCRIPT="https://github.com/shadowsocks/shadowsocks-libev/raw/master/docker/alpine/Dockerfile"
+    KCPTUN_DIR="/usr/local/kcp-server" \
+    SS_SCRIPT="https://github.com/shadowsocks/shadowsocks-libev/raw/master/docker/alpine/Dockerfile" \
     SS_URL="https://glare.arukascloud.io/shadowsocks/shadowsocks-libev/.*gz"
 
 RUN set -ex && \
